@@ -1,4 +1,5 @@
-﻿using CandidatesApp._3.Infrastructure.Commands;
+﻿using CandidatesApp._2.Aplication.DTOs;
+using CandidatesApp._3.Infrastructure.Commands;
 using CandidatesApp._3.Infrastructure.Queries;
 using CandidatesApp.Models;
 using MediatR;
@@ -9,14 +10,9 @@ namespace CandidatesApp._1.Presentation.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CandidateController:ControllerBase
+    public class CandidateController(IMediator mediator) : ControllerBase
     {
-        private readonly IMediator _mediator;
-
-        public CandidateController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        private readonly IMediator _mediator = mediator;
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Candidate>>> GetAllCandidates()
@@ -57,6 +53,24 @@ namespace CandidatesApp._1.Presentation.Controller
             }
 
             return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<CandidateDTO>> UpdateCandidate(int id, [FromBody] UpdateCandidateCommand command)
+        {
+            if (id != command.Id)
+            {
+                return BadRequest("The candidate ID in the URL does not match the one in the body. Please check and try again.");
+            }
+
+            var updatedCandidate = await _mediator.Send(command);
+
+            if (updatedCandidate == null)
+            {
+                return NotFound($"Candidate with ID {id} does not exist.");
+            }
+
+            return Ok(updatedCandidate);
         }
 
     }

@@ -25,6 +25,10 @@ namespace CandidatesApp._2.Aplication.Handlers
                 Id = candidate.Id,
                 Name = candidate.Name,
                 Email = candidate.Email,
+                Surname = candidate.Surname,
+                Birthdate = candidate.Birthdate,
+                InsertDate = candidate.InsertDate, 
+                ModifyDate = candidate.ModifyDate,
             });
 
             return candidateDTOs;

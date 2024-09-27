@@ -19,6 +19,16 @@ namespace CandidatesApp.Models
                       .HasColumnType("decimal(18,2)");
             });
         }
+
+        internal async Task<Candidate> GetByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal async Task UpdateAsync(Candidate candidate)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 
