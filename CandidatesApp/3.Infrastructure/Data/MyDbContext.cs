@@ -9,11 +9,11 @@ namespace CandidatesApp.Models
 
         }
         public DbSet<Candidate> Candidates { get; set; }
-        public DbSet<CandidateExperience> CandidatesExperience { get; set; }
+        public DbSet<Experience> Experience { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CandidateExperience>(entity =>
+            modelBuilder.Entity<Experience>(entity =>
             {
                 entity.Property(e => e.Salary)
                       .HasColumnType("decimal(18,2)");

@@ -11,6 +11,6 @@
         public DateTime? ModifyDate { get; set; }
 
         // Relation 1 to * CandidateExperience
-        public ICollection<CandidateExperience> Experiences { get; set; }
+        public ICollection<Experience> Experiences { get; set; }
     }
 }

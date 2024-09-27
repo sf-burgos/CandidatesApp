@@ -1,6 +1,6 @@
-﻿namespace CandidatesApp.Models
+﻿namespace CandidatesApp._2.Aplication.DTOs
 {
-    public class CandidateExperience
+    public class ExperienceDto
     {
         public int Id { get; set; }
         public int CandidateId { get; set; }
@@ -12,8 +12,5 @@
         public DateTime? EndDate { get; set; }
         public DateTime InsertDate { get; set; } = DateTime.Now;
         public DateTime? ModifyDate { get; set; }
-
-        // Relación * to 1 candidate
-        public Candidate Candidate { get; set; }
     }
 }

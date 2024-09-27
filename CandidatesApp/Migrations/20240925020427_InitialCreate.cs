@@ -30,7 +30,7 @@ namespace CandidatesApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CandidatesExperience",
+                name: "Experience",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -47,9 +47,9 @@ namespace CandidatesApp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CandidatesExperience", x => x.Id);
+                    table.PrimaryKey("PK_Experience", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CandidatesExperience_Candidates_CandidateId",
+                        name: "FK_Experience_Candidates_CandidateId",
                         column: x => x.CandidateId,
                         principalTable: "Candidates",
                         principalColumn: "Id",
@@ -57,8 +57,8 @@ namespace CandidatesApp.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CandidatesExperience_CandidateId",
-                table: "CandidatesExperience",
+                name: "IX_Experience_CandidateId",
+                table: "Experience",
                 column: "CandidateId");
         }
 
@@ -66,7 +66,7 @@ namespace CandidatesApp.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CandidatesExperience");
+                name: "Experience");
 
             migrationBuilder.DropTable(
                 name: "Candidates");

@@ -10,6 +10,6 @@
         public DateTime InsertDate { get; set; } = DateTime.Now;
         public DateTime? ModifyDate { get; set; }
 
-        public ICollection<CandidateExperienceDTO> Experiences { get; set; }
+        public ICollection<ExperienceDto> Experiences { get; set; }
     }
 }
