@@ -1,4 +1,5 @@
-﻿using CandidatesApp._2.Aplication.DTOs;
+﻿using AutoMapper;
+using CandidatesApp._2.Aplication.DTOs;
 using CandidatesApp._2.Application.Exceptions;
 using CandidatesApp._3.Infrastructure.Commands;
 using CandidatesApp.Models;
@@ -9,10 +10,12 @@ namespace CandidatesApp._2.Aplication.Handlers
     public class AddExperienceHandler : IRequestHandler<AddExperienceCommand, ExperienceDto>
     {
         private readonly MyDbContext _context;
+        private readonly IMapper _mapper;
 
-        public AddExperienceHandler(MyDbContext context)
+        public AddExperienceHandler(MyDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<ExperienceDto> Handle(AddExperienceCommand request, CancellationToken cancellationToken)
@@ -20,37 +23,17 @@ namespace CandidatesApp._2.Aplication.Handlers
             var candidate = await _context.Candidates.FindAsync(request.CandidateId);
             if (candidate == null)
             {
-                return null;
+                return null; 
             }
 
-            var experience = new Experience
-            {
-                CandidateId = request.CandidateId,
-                Company = request.Experience.Company,
-                Job = request.Experience.Job,
-                Description = request.Experience.Description,
-                Salary = request.Experience.Salary,
-                BeginDate = request.Experience.BeginDate,
-                EndDate = request.Experience.EndDate,
-                InsertDate = DateTime.Now
-            };
+            var experience = _mapper.Map<Experience>(request.Experience);
+            experience.CandidateId = request.CandidateId;
+            experience.InsertDate = DateTime.Now;
 
             await _context.Experience.AddAsync(experience);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
 
-            return new ExperienceDto
-            {
-                Id = experience.Id,
-                CandidateId = experience.CandidateId,
-                Company = experience.Company,
-                Job = experience.Job,
-                Description = experience.Description,
-                Salary = experience.Salary,
-                BeginDate = experience.BeginDate,
-                EndDate = experience.EndDate,
-                InsertDate = experience.InsertDate
-            };
+            return _mapper.Map<ExperienceDto>(experience);
         }
     }
-
 }

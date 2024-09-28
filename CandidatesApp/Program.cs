@@ -12,6 +12,7 @@ builder.Services.AddDbContext<MyDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddMediatR(typeof(Program).Assembly);
+builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 

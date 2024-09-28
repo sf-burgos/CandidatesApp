@@ -1,8 +1,8 @@
 ﻿using CandidatesApp._2.Aplication.DTOs;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using CandidatesApp._3.Infrastructure.Commands;
 using CandidatesApp._3.Infrastructure.Queries;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CandidatesApp._1.Presentation.Controller
 {
@@ -18,14 +18,14 @@ namespace CandidatesApp._1.Presentation.Controller
         }
 
         [HttpPost("{id}")]
-        public async Task<ActionResult<ExperienceDto>> AddExperience(int id, [FromBody] ExperienceDto experience)
+        public async Task<ActionResult<ExperienceDto>> AddExperience(int id, [FromBody] ExperienceDto experienceDto)
         {
-            if (experience == null)
+            if (experienceDto == null)
             {
                 return BadRequest("Experience cannot be null.");
             }
 
-            var command = new AddExperienceCommand(id, experience);
+            var command = new AddExperienceCommand(id, experienceDto);
             var result = await _mediator.Send(command);
 
             if (result == null)
@@ -55,12 +55,12 @@ namespace CandidatesApp._1.Presentation.Controller
             var command = new DeleteExperienceCommand(candidateId, experienceId);
             var result = await _mediator.Send(command);
 
-            if (!result)
+            if (result == null)
             {
                 return NotFound($"Experience with ID {experienceId} for candidate {candidateId} does not exist.");
             }
 
-            return NoContent();
+            return Ok($"Experience with ID {experienceId} for candidate {candidateId} deleted successfully.");
         }
 
         [HttpPut("{experienceId}/candidate/{candidateId}")]

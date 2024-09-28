@@ -1,50 +1,40 @@
-﻿using CandidatesApp._2.Aplication.DTOs;
+﻿using AutoMapper;
+using CandidatesApp._2.Aplication.DTOs;
 using CandidatesApp._3.Infrastructure.Commands;
 using CandidatesApp.Models;
+using CandidatesApp._2.Application.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 public class UpdateExperienceHandler : IRequestHandler<UpdateExperienceCommand, ExperienceDto>
 {
     private readonly MyDbContext _context;
+    private readonly IMapper _mapper;
 
-    public UpdateExperienceHandler(MyDbContext context)
+    public UpdateExperienceHandler(MyDbContext context, IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
     }
 
     public async Task<ExperienceDto> Handle(UpdateExperienceCommand request, CancellationToken cancellationToken)
     {
         var experience = await GetExperienceById(request.CandidateId, request.ExperienceId);
 
-        if (experience == null)
+        if (experience != null)
         {
-            return null;
+            _mapper.Map(request, experience);
+            experience.ModifyDate = DateTime.Now;
+
+            _context.Experience.Update(experience);
+            await _context.SaveChangesAsync(cancellationToken);
+
+            var experienceDto = _mapper.Map<ExperienceDto>(experience);
+
+            return experienceDto;
         }
 
-        experience.Company = request.Company;
-        experience.Job = request.Job;
-        experience.Description = request.Description;
-        experience.Salary = request.Salary;
-        experience.BeginDate = request.BeginDate;
-        experience.EndDate = request.EndDate;
-        experience.ModifyDate = DateTime.Now;
-
-        _context.Experience.Update(experience);
-        await _context.SaveChangesAsync(cancellationToken);
-
-        return new ExperienceDto
-        {
-            Id = experience.Id,
-            CandidateId = experience.CandidateId,
-            Company = experience.Company,
-            Job = experience.Job,
-            Description = experience.Description,
-            Salary = experience.Salary,
-            BeginDate = experience.BeginDate,
-            EndDate = experience.EndDate,
-            ModifyDate = DateTime.Now
-        };
+        throw new ExperienceNotFoundException(request.CandidateId, request.ExperienceId);
     }
 
     private async Task<Experience> GetExperienceById(int candidateId, int experienceId)
@@ -53,5 +43,3 @@ public class UpdateExperienceHandler : IRequestHandler<UpdateExperienceCommand, 
                              .FirstOrDefaultAsync(e => e.CandidateId == candidateId && e.Id == experienceId);
     }
 }
-
-
