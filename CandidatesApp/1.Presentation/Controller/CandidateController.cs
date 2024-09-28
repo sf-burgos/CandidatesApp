@@ -1,28 +1,35 @@
-﻿using CandidatesApp._2.Aplication.DTOs;
+﻿using AutoMapper;
+using CandidatesApp._2.Aplication.DTOs;
 using CandidatesApp._3.Infrastructure.Commands;
 using CandidatesApp._3.Infrastructure.Queries;
-using CandidatesApp.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
 namespace CandidatesApp._1.Presentation.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CandidateController(IMediator mediator) : ControllerBase
+    public class CandidateController : ControllerBase
     {
-        private readonly IMediator _mediator = mediator;
+        private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
+
+        public CandidateController(IMediator mediator, IMapper mapper)
+        {
+            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+        }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Candidate>>> GetAllCandidates()
+        public async Task<ActionResult<IEnumerable<CandidateDTO>>> GetAllCandidates()
         {
             var candidates = await _mediator.Send(new GetAllCandidatesQuery());
-            return Ok(candidates);
+            var candidateDTOs = _mapper.Map<IEnumerable<CandidateDTO>>(candidates);
+            return Ok(candidateDTOs);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Candidate>> GetCandidateById(int id)
+        public async Task<ActionResult<CandidateDTO>> GetCandidateById(int id)
         {
             var candidate = await _mediator.Send(new GetCandidateByIdQuery(id));
 
@@ -31,14 +38,16 @@ namespace CandidatesApp._1.Presentation.Controller
                 return NotFound();
             }
 
-            return Ok(candidate);
+            var candidateDTO = _mapper.Map<CandidateDTO>(candidate);
+            return Ok(candidateDTO);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Candidate>> CreateCandidate([FromBody] CreateCandidateCommand command)
+        public async Task<ActionResult<CandidateDTO>> CreateCandidate([FromBody] CreateCandidateCommand command)
         {
             var createdCandidate = await _mediator.Send(command);
-            return CreatedAtAction(nameof(GetCandidateById), new { id = createdCandidate.Id }, createdCandidate);
+            var candidateDTO = _mapper.Map<CandidateDTO>(createdCandidate);
+            return CreatedAtAction(nameof(GetCandidateById), new { id = candidateDTO.Id }, candidateDTO);
         }
 
         [HttpDelete("{id}")]
@@ -47,9 +56,9 @@ namespace CandidatesApp._1.Presentation.Controller
             var command = new DeleteCandidateCommand(id);
             var result = await _mediator.Send(command);
 
-            if (!result)
+            if (string.IsNullOrWhiteSpace(result))
             {
-                return NotFound();
+                return NotFound("The candidate ID in the URL No Found to delete");
             }
 
             return NoContent();
@@ -70,8 +79,8 @@ namespace CandidatesApp._1.Presentation.Controller
                 return NotFound($"Candidate with ID {id} does not exist.");
             }
 
-            return Ok(updatedCandidate);
+            var candidateDTO = _mapper.Map<CandidateDTO>(updatedCandidate);
+            return Ok(candidateDTO);
         }
-
     }
 }

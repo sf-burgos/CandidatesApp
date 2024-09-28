@@ -1,4 +1,5 @@
-﻿using CandidatesApp._2.Aplication.DTOs;
+﻿using AutoMapper;
+using CandidatesApp._2.Aplication.DTOs;
 using CandidatesApp._3.Infrastructure.Commands;
 using CandidatesApp.Models;
 using MediatR;
@@ -7,26 +8,28 @@ using CandidatesApp._2.Application.Exceptions;
 
 namespace CandidatesApp._2.Aplication.Handlers
 {
-    public class GetCandidateByIdHandler(MyDbContext context) : IRequestHandler<GetCandidateByIdQuery, CandidateDTO >
+    public class GetCandidateByIdHandler : IRequestHandler<GetCandidateByIdQuery, CandidateDTO>
     {
-        private readonly MyDbContext _context = context;
+        private readonly MyDbContext _context;
+        private readonly IMapper _mapper;
+
+        public GetCandidateByIdHandler(MyDbContext context, IMapper mapper)
+        {
+            _context = context;
+            _mapper = mapper;
+        }
 
         public async Task<CandidateDTO> Handle(GetCandidateByIdQuery request, CancellationToken cancellationToken)
         {
             var candidate = await _context.Candidates
                 .FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
 
-            return candidate == null
-                ? throw new CandidateNotFoundException(request.Id)
-                : new CandidateDTO
+            if (candidate == null)
             {
-                Id = candidate.Id,
-                Name = candidate.Name,
-                Surname = candidate.Surname,
-                Birthdate = candidate.Birthdate,
-                Email = candidate.Email,
-                ModifyDate = candidate.ModifyDate
-            };
+                throw new CandidateNotFoundException(request.Id);
+            }
+
+            return _mapper.Map<CandidateDTO>(candidate);
         }
     }
 }

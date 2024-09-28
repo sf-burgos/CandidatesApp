@@ -3,13 +3,5 @@ using MediatR;
 
 namespace CandidatesApp._3.Infrastructure.Queries
 {
-    public class GetExperiencesByCandidateIdQuery : IRequest<List<ExperienceDto>>
-    {
-        public int CandidateId { get; }
-
-        public GetExperiencesByCandidateIdQuery(int candidateId)
-        {
-            CandidateId = candidateId;
-        }
-    }
+    public record GetExperiencesByCandidateIdQuery(int CandidateId) : IRequest<List<ExperienceDto>>;
 }

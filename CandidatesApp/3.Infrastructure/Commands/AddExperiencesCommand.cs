@@ -3,15 +3,6 @@ using MediatR;
 
 namespace CandidatesApp._3.Infrastructure.Commands
 {
-    public class AddExperienceCommand : IRequest<ExperienceDto>
-    {
-        public int CandidateId { get; set; }
-        public ExperienceDto Experience { get; set; }
+    public record AddExperienceCommand(int CandidateId, ExperienceDto Experience) : IRequest<ExperienceDto>;
 
-        public AddExperienceCommand(int candidateId, ExperienceDto experience)
-        {
-            CandidateId = candidateId;
-            Experience = experience;
-        }
-    }
 }

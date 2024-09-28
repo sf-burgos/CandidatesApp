@@ -3,5 +3,5 @@ using MediatR;
 
 namespace CandidatesApp._3.Infrastructure.Commands
 {
-    public record DeleteCandidateCommand(int Id): IRequest<bool>;
+    public record DeleteCandidateCommand(int Id) : IRequest<string>;
 }
