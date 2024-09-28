@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using CandidatesApp._2.Aplication.DTOs;
+﻿using CandidatesApp._2.Aplication.DTOs;
 using CandidatesApp._3.Infrastructure.Commands;
 using CandidatesApp._3.Infrastructure.Queries;
 using MediatR;
@@ -12,12 +11,10 @@ namespace CandidatesApp._1.Presentation.Controller
     public class ExperienceController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IMapper _mapper;
 
-        public ExperienceController(IMediator mediator, IMapper mapper)
+        public ExperienceController(IMediator mediator)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         [HttpPost("{id}")]
@@ -29,7 +26,6 @@ namespace CandidatesApp._1.Presentation.Controller
             }
 
             var command = new AddExperienceCommand(id, experienceDto);
-
             var result = await _mediator.Send(command);
 
             if (result == null)
@@ -59,7 +55,7 @@ namespace CandidatesApp._1.Presentation.Controller
             var command = new DeleteExperienceCommand(candidateId, experienceId);
             var result = await _mediator.Send(command);
 
-            if (result==null)
+            if (result == null)
             {
                 return NotFound($"Experience with ID {experienceId} for candidate {candidateId} does not exist.");
             }

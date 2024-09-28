@@ -13,7 +13,11 @@ namespace CandidatesApp._2.Aplication.DTOs
             CreateMap<CandidateDTO, Candidate>();
             CreateMap<ExperienceDto, Experience>();
             CreateMap<CreateCandidateCommand, Candidate>();
-            
+            CreateMap<UpdateCandidateCommand, Candidate>();
+            CreateMap<UpdateExperienceCommand, Experience>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+
         }
     }
 }
