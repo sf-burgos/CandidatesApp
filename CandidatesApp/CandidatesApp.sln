@@ -19,6 +19,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.Domain", "4.Domain", "{7F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandidatesApp.Domain", "..\CandidatesApp.Domain\CandidatesApp.Domain.csproj", "{0CCEC13F-F62D-48ED-B473-8D8BC41DA483}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.Test", "5.Test", "{6E27B113-13FF-44F6-BE5C-686A5DDE3BA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandlerTest", "..\GetAllCandidatesHandlerTest\HandlerTest.csproj", "{AB94C710-68F5-4D65-9BD2-DA3BF46CFD7B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +45,10 @@ Global
 		{0CCEC13F-F62D-48ED-B473-8D8BC41DA483}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CCEC13F-F62D-48ED-B473-8D8BC41DA483}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CCEC13F-F62D-48ED-B473-8D8BC41DA483}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB94C710-68F5-4D65-9BD2-DA3BF46CFD7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB94C710-68F5-4D65-9BD2-DA3BF46CFD7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB94C710-68F5-4D65-9BD2-DA3BF46CFD7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB94C710-68F5-4D65-9BD2-DA3BF46CFD7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +58,7 @@ Global
 		{90150BC0-6CB8-44CF-B515-E3D14E4D9D59} = {8A9ADE83-D9AF-4F45-B0BB-6CA45D86AFC4}
 		{24DD0591-D542-4101-BD5A-8E4FF5EEBEE7} = {683E3649-2E3A-427A-9DC3-FC3D598A1BF6}
 		{0CCEC13F-F62D-48ED-B473-8D8BC41DA483} = {7FD093ED-1F45-4776-BF58-2129B203CD8B}
+		{AB94C710-68F5-4D65-9BD2-DA3BF46CFD7B} = {6E27B113-13FF-44F6-BE5C-686A5DDE3BA7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D6F0303A-D651-4F82-B885-476027B0C7AD}
