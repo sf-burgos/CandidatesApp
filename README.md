@@ -20,7 +20,6 @@
 
 - **Candidate Management**: Add, edit, and delete candidate information.
 - **Experience Logging**: Easily log work experiences associated with each candidate.
-- **User-Friendly Interface**: Intuitive user experience design.
 - **Database Integration**: Utilizes Entity Framework for seamless data management.
 
 ## Technologies Used
