@@ -1,0 +1,114 @@
+{
+	"info": {
+		"_postman_id": "92fe25fb-0e26-4326-86bb-b6dc20ba6cd4",
+		"name": "Candidates",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14652117"
+	},
+	"item": [
+		{
+			"name": "GetAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7281/api/candidate",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7281",
+					"path": [
+						"api",
+						"candidate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"John\",\n  \"surname\": \"Doe\",\n  \"birthdate\": \"1990-01-01\",\n  \"email\": \"john.doe@example.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7281/api/candidate",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7281",
+					"path": [
+						"api",
+						"candidate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetByID",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteByID",
+			"request": {
+				"method": "DELETE",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "PutById",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 1,\n  \"name\": \"TestUpdate\",\n  \"surname\": \"testUpdate\",\n  \"birthdate\": \"1990-10-13T00:00:00+00:00\",\n  \"email\": \"update@example.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7145/api/candidate",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7145",
+					"path": [
+						"api",
+						"candidate"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

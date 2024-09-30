@@ -1,0 +1,73 @@
+{
+	"info": {
+		"_postman_id": "4cf22f10-a462-477e-bc4c-e4343b10d346",
+		"name": "Candidate Experience",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "14652117"
+	},
+	"item": [
+		{
+			"name": "AddExperience",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"company\": \"Company 1\",\n        \"job\": \"Developer\",\n        \"description\": \"Worked on various projects\",\n        \"salary\": 5000,\n        \"beginDate\": \"2021-01-01T00:00:00\",\n        \"endDate\": \"2022-01-01T00:00:00\"\n    },\n    {\n        \"company\": \"Company 2\",\n        \"job\": \"Lead Developer\",\n        \"description\": \"Led the development team\",\n        \"salary\": 7000,\n        \"beginDate\": \"2022-02-01T00:00:00\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://localhost:7145/api/experiences/1"
+			},
+			"response": []
+		},
+		{
+			"name": "GetExperiencesByCandidateId",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteExperience",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "https://localhost:7145/api/candidate/1/experiences/2"
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateExperience",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"candidateId\": 1,\n    \"experienceId\": 1,\n    \"company\": \"UpdateTest\",\n    \"job\": \"UpdateTest\",\n    \"description\": \"UpdateTest\",\n    \"salary\": 6000,\n    \"beginDate\": \"2021-01-01T00:00:00\",\n    \"endDate\": \"2022-01-01T00:00:00\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://localhost:7145/api/experience/1/candidate/1"
+			},
+			"response": []
+		}
+	]
+}
